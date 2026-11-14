@@ -1,0 +1,37 @@
+*{box-sizing:border-box}
+html,body{margin:0;height:100%;font:14px/1.5 -apple-system,"PingFang SC","Microsoft YaHei",sans-serif;color:#222}
+#map{position:absolute;inset:0}
+#panel{position:absolute;z-index:1000;top:10px;left:10px;width:300px;max-height:calc(100% - 20px);background:#fff;border-radius:10px;box-shadow:0 2px 10px rgba(0,0,0,.3);display:flex;flex-direction:column}
+#toggle{display:none;border:0;background:none;padding:10px 14px;font:inherit;font-weight:600;text-align:left;width:100%}
+#panel-body{padding:12px 14px;overflow:auto}
+h1{font-size:16px;margin:0 0 8px}
+.row{display:flex;flex-wrap:wrap;gap:6px 12px;margin:8px 0}
+.row.col{flex-direction:column;gap:3px}
+.row label.t{display:flex;align-items:center;gap:4px;cursor:pointer}
+.dot{width:12px;height:12px;border-radius:50%;display:inline-block;border:1px solid rgba(0,0,0,.4)}
+select,input[type=range]{width:100%;font:inherit}
+small{color:#777}
+#count{font-weight:600;margin:8px 0}
+#reset{padding:6px 12px;font:inherit}
+#meta{margin-top:8px;color:#777;font-size:12px}
+#sheet{position:absolute;z-index:1100;background:#fff;box-shadow:0 -2px 12px rgba(0,0,0,.35);overflow:auto;padding:14px 16px;
+ right:10px;top:10px;width:340px;max-height:calc(100% - 20px);border-radius:10px}
+#sheet[hidden]{display:none}
+#close{position:absolute;right:8px;top:4px;border:0;background:none;font-size:28px;line-height:1;padding:4px 8px}
+#sheet h2{font-size:16px;margin:0 28px 2px 0}
+.badge{display:inline-block;color:#fff;border-radius:10px;padding:1px 10px;font-size:12px;margin:4px 0}
+.score{font-size:22px;font-weight:700}
+table{border-collapse:collapse;width:100%;margin:6px 0}
+td{padding:2px 4px;border-bottom:1px solid #eee}td:last-child{text-align:right}
+ul.r{padding-left:18px;margin:6px 0}
+.note{color:#8a5a00;background:#fff6e0;padding:4px 8px;border-radius:6px;font-size:12px;margin:6px 0}
+a.gm{display:block;text-align:center;background:#1a73e8;color:#fff;text-decoration:none;padding:10px;border-radius:8px;margin-top:10px}
+@media (max-width:700px){
+ #panel{top:auto;left:0;right:0;bottom:0;width:auto;border-radius:12px 12px 0 0;max-height:60%}
+ #toggle{display:flex;gap:8px;align-items:center}
+ #panel.collapsed #panel-body{display:none}
+ #panel.collapsed #chev{transform:rotate(180deg)}
+ #sheet{left:0;right:0;top:auto;bottom:0;width:auto;max-height:70%;border-radius:14px 14px 0 0;z-index:1200;padding-bottom:calc(14px + env(safe-area-inset-bottom))}
+ .leaflet-top.leaflet-left{top:0}
+ h1{display:none}
+}

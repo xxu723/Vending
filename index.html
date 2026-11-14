@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>万锦市自动售货机选址地图</title>
+<link rel="stylesheet" href="vendor/leaflet.css">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div id="map"></div>
+
+<div id="panel">
+  <button id="toggle" type="button" aria-expanded="true">
+    <span>筛选</span> <b id="count-mini"></b> <i id="chev">▾</i>
+  </button>
+  <div id="panel-body">
+    <h1>万锦市自动售货机选址地图</h1>
+    <div class="row" id="tiers"></div>
+    <label class="row col">类别
+      <select id="group" multiple size="5"></select>
+      <small>按住 Ctrl/⌘ 可多选;不选 = 全部</small>
+    </label>
+    <label class="row col">最低分数:<b id="minv">0</b>
+      <input type="range" id="min" min="0" max="100" step="1" value="0">
+      <small>待定点位尚无综合分,按人流分计</small>
+    </label>
+    <div id="count"></div>
+    <button id="reset" type="button">重置筛选</button>
+    <div id="meta"></div>
+  </div>
+</div>
+
+<div id="sheet" hidden>
+  <button id="close" type="button" aria-label="关闭">×</button>
+  <div id="sheet-body"></div>
+</div>
+
+<script src="vendor/leaflet.js"></script>
+<script src="data.js"></script>
+<script src="app.js"></script>
+</body>
+</html>

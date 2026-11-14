@@ -9,7 +9,8 @@ function score(s){return s.total!=null?s.total:s.T}
 
 var map=L.map('map',{preferCanvas:true}).setView([43.86,-79.29],11);
 L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png',{maxZoom:19,attribution:'&copy; OpenStreetMap 贡献者'}).addTo(map);
-var canvas=L.canvas({padding:.5,tolerance:6});
+var canvas=L.canvas({padding:.5,tolerance:L.Browser.touch?14:8});
+var lastMarkerClick=0;
 var layer=L.layerGroup().addTo(map);
 
 var state={tiers:{green:1,yellow:1,red:1,pending:1},groups:{},min:0};
@@ -17,7 +18,7 @@ var groupLabels={};SITES.forEach(function(s){groupLabels[s.primary_group]=s.prim
 
 var markers=SITES.map(function(s){
   var m=L.circleMarker([s.lat,s.lng],{renderer:canvas,radius:s.tier==='pending'?4:6,weight:1,color:'#fff',fillColor:COL[s.tier]||COL.pending,fillOpacity:s.tier==='pending'?.6:.9});
-  m.on('click',function(){show(s)});
+  m.on('click',function(e){lastMarkerClick=Date.now();show(s)});
   s._m=m;return m;
 });
 
@@ -83,7 +84,7 @@ function show(s){
   $('sheet-body').innerHTML=h;$('sheet').hidden=false;$('sheet').scrollTop=0;
 }
 $('close').onclick=function(){$('sheet').hidden=true};
-map.on('click',function(){$('sheet').hidden=true});
+map.on('click',function(){if(Date.now()-lastMarkerClick<400)return;$('sheet').hidden=true});
 apply();
 if(SITES.length)map.fitBounds(L.latLngBounds(SITES.map(function(s){return[s.lat,s.lng]})).pad(.05));
 })();

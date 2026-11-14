@@ -7,9 +7,9 @@ function $(i){return document.getElementById(i)}
 function esc(s){return String(s==null?'':s).replace(/[&<>"']/g,function(c){return{'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]})}
 function score(s){return s.total!=null?s.total:s.T}
 
-var map=L.map('map',{preferCanvas:true}).setView([43.86,-79.29],11);
+var map=L.map('map',{preferCanvas:false,tap:false}).setView([43.86,-79.29],11);
 L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png',{maxZoom:19,attribution:'&copy; OpenStreetMap 贡献者'}).addTo(map);
-var canvas=L.canvas({padding:.5,tolerance:L.Browser.touch?14:8});
+var canvas=L.svg({padding:.5});
 var lastMarkerClick=0;
 var layer=L.layerGroup().addTo(map);
 
@@ -17,7 +17,7 @@ var state={tiers:{green:1,yellow:1,red:1,pending:1},groups:{},min:0};
 var groupLabels={};SITES.forEach(function(s){groupLabels[s.primary_group]=s.primary_group_label});
 
 var markers=SITES.map(function(s){
-  var m=L.circleMarker([s.lat,s.lng],{renderer:canvas,radius:s.tier==='pending'?4:6,weight:1,color:'#fff',fillColor:COL[s.tier]||COL.pending,fillOpacity:s.tier==='pending'?.6:.9});
+  var m=L.circleMarker([s.lat,s.lng],{renderer:canvas,radius:s.tier==='pending'?4:6,weight:L.Browser.touch?6:1,color:'#fff',opacity:L.Browser.touch?0.01:1,fillColor:COL[s.tier]||COL.pending,fillOpacity:s.tier==='pending'?.6:.9});
   m.on('click',function(e){lastMarkerClick=Date.now();show(s)});
   s._m=m;return m;
 });
